@@ -1,0 +1,76 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    background: #f3f3f3;
+    padding: 0.5vw;
+    width: 28vw;
+}
+.display{
+    width: 100%;
+    margin-bottom: 3.5em;
+}
+#textDisplay{
+    width: 100%;
+    text-align: right;
+    background: transparent;
+    border: none;
+    color: black;
+    font-size: 3.5vw;
+    font-weight: 800;
+}
+input#textDisplay:focus{
+    border: none;
+    outline: none;
+}
+.row{
+    margin: 0.3em 0;
+    width: 100%;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+#first .btn{
+    flex-grow: 0;
+}
+.btn{
+    font-size: 1.2vw;
+    font-weight: 0;
+    padding: 0.5em 0.1em;
+    background: #f6f6f6;
+    width: 5vw;
+    border: none;
+    flex-grow: 1;
+    cursor: pointer;
+}
+.out-display .btn{
+    aspect-ratio: 3/2;
+}
+.fun-btn{
+    width: max-content;
+    padding: 0;
+    flex-grow: 0;
+    margin: 0.5em;
+    margin-right: 1em;
+    width: max-content;
+    display: flex;
+    flex-direction: row;
+    gap: 0.4em;
+    justify-content: center;
+    align-items: center;
+}
+.in-display .btn{
+    background-color: transparent;
+}
+.num{
+    background-color: #fff;
+    font-weight: 800;
+}
