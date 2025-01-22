@@ -12,14 +12,16 @@
     <div class="container">
         <div class="display"><input type="text" value="0" id="textDisplay"></div>
         <div class="row in-display" id="first">
-            <button class="btn">DEG</button><button class="btn">F-E</button>
+            <button class="btn">DEG</button>
+            <button class="btn">F-E</button>
+            <span id="mText"><i>memory:</i></span>
         </div>
         <div class="row in-display">
             <button class="btn" disabled>MC</button>
             <button class="btn" disabled>MR</button>
-            <button class="btn">M+</button>
-            <button class="btn">M-</button>
-            <button class="btn">MS</button>
+            <button class="btn" id="mPlus">M+</button>
+            <button class="btn" id="mMinus">M-</button>
+            <button class="btn" id="mStore">MS</button>
         </div>
         <div class="row in-display">
             <button class="btn fun-btn"><span>&#9727;</span><span>Trigonometry</span><span><i class='fas fa-angle-down'></i></span></button>
@@ -33,7 +35,7 @@
             <button class="btn" id="back">&#9003;</button>
         </div>
         <div class="row out-display">
-            <button class="btn">x<sup><i>2</i></sup></button>
+            <button class="btn" id="powerTwo">x<sup><i>2</i></sup></button>
             <button class="btn">1/<i>x</i></button>
             <button class="btn">| <i>x</i> |</button>
             <button class="btn">exp</button>
@@ -43,7 +45,7 @@
             <button class="btn"><sup><i>2</i></sup>&#8730;x</button>
             <button class="btn">&#40;</button>
             <button class="btn">&#41;</button>
-            <button class="btn">n!</button>
+            <button class="btn" id="fact">n!</button>
             <button class="btn operator" id="/">&#xf7;</button>
         </div>
         <div class="row out-display">
