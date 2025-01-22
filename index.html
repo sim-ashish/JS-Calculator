@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
     <link rel="stylesheet" href="./calculator.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
+        integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
     <div class="container">
         <div class="display"><input type="text" value="0" id="textDisplay"></div>
@@ -24,8 +30,10 @@
             <button class="btn" id="mStore">MS</button>
         </div>
         <div class="row in-display">
-            <button class="btn fun-btn"><span>&#9727;</span><span>Trigonometry</span><span><i class='fas fa-angle-down'></i></span></button>
-            <button class="btn fun-btn"><span><i>&#x192;</i></span><span>Function</span><span><i class='fas fa-angle-down'></i></span></button>
+            <button class="btn fun-btn"><span>&#9727;</span><span>Trigonometry</span><span><i
+                        class='fas fa-angle-down'></i></span></button>
+            <button class="btn fun-btn"><span><i>&#x192;</i></span><span>Function</span><span><i
+                        class='fas fa-angle-down'></i></span></button>
         </div>
         <div class="row out-display">
             <button class="btn">2<sup><i>nd</i></sup></button>
@@ -73,10 +81,11 @@
             <button class="btn">In</button>
             <button class="btn">+/-</button>
             <button class="btn num">0</button>
-            <button class="btn">.</button>
-            <button class="btn operator">=</button>
+            <button class="btn" id="dot">.</button>
+            <button class="btn operator" id="equals">=</button>
         </div>
     </div>
     <script src="./calculator.js"></script>
 </body>
+
 </html>

@@ -9,7 +9,9 @@ const mPlus = document.getElementById('mPlus');
 const mMinus = document.getElementById('mMinus');
 const mStore = document.getElementById('mStore');
 let mText = document.getElementById('mText');
+const dotOp = document.getElementById('dot');
 let memoryVariable;
+let dotAppend = true;
 
 //Event Listerner for each button to append it into Display
 buttons.forEach((btn)=>{
@@ -47,12 +49,32 @@ operators.forEach((op)=>{
         }
         else if(display.value != "0" && e.target.innerHTML != "=" && !lastCheck()){
             display.value += `${e.target.id}`;
+            dotAppend = true;
         }
         else if(e.target.innerHTML == "="){
             let tempValue = display.value;
             display.value = calculate(tempValue);
         }
     })
+})
+
+//Event Listerner for Dot 
+dotOp.addEventListener('click',(e)=>{
+    if(display.value == "0" && dotAppend){
+        display.value = "0.";
+        dotAppend = false;
+    }
+    else if(display.value != "0" && dotAppend){
+        if(lastCheck()){
+            display.value += '0.';
+            dotAppend = false;
+        }
+        else{
+            display.value += '.';
+            dotAppend = false;
+        }
+        
+    }
 })
 
 //Event Listerner to Clear Display
@@ -131,15 +153,16 @@ function calculate(string){
     if(display.value.length < 2 && display.value[0] == "-"){
         return display.value;
     }
-    return eval(string);
+    if(string.indexOf('.') != -1){
+        return Number(eval(string)).toFixed(3);
+    }
+    return eval(string)
 }
 
 
 //Function To Check Last Character in Display, will return true if last character is operator
 function lastCheck(){
-    console.log(display.value.at(-1))
     if(display.value.at(-1) == "*" || display.value.at(-1) == "/" || display.value.at(-1) == "-" || display.value.at(-1) == "+"){
-        
         return true;
     }
     else{
