@@ -23,8 +23,8 @@
             <span id="mText"><i>memory:</i></span>
         </div>
         <div class="row in-display">
-            <button class="btn" disabled>MC</button>
-            <button class="btn" disabled>MR</button>
+            <button class="btn" id="memClear" disabled>MC</button>
+            <button class="btn" id="memRecall" disabled>MR</button>
             <button class="btn" id="mPlus">M+</button>
             <button class="btn" id="mMinus">M-</button>
             <button class="btn" id="mStore">MS</button>
@@ -43,7 +43,7 @@
             <button class="btn" id="back">&#9003;</button>
         </div>
         <div class="row out-display">
-            <button class="btn" id="powerTwo">x<sup><i>2</i></sup></button>
+            <button class="btn" value="^" id="powerTwo">x<sup><i>2</i></sup></button>
             <button class="btn" id="oneX">1/<i>x</i></button>
             <button class="btn">| <i>x</i> |</button>
             <button class="btn">exp</button>
@@ -51,8 +51,8 @@
         </div>
         <div class="row out-display">
             <button class="btn"><sup><i>2</i></sup>&#8730;x</button>
-            <button class="btn">&#40;</button>
-            <button class="btn">&#41;</button>
+            <button class="btn" id="openBr">&#40;</button>
+            <button class="btn" id="closeBr">&#41;</button>
             <button class="btn" id="fact">n!</button>
             <button class="btn operator" id="/">&#xf7;</button>
         </div>

@@ -6,13 +6,22 @@ const back = document.getElementById('back');
 const powerTwo = document.getElementById('powerTwo');
 const oneByX = document.getElementById('oneX');
 const factorial = document.getElementById('fact');
+const memClear = document.getElementById('memClear')
+const memRecall = document.getElementById('memRecall')
 const mPlus = document.getElementById('mPlus');
 const mMinus = document.getElementById('mMinus');
 const mStore = document.getElementById('mStore');
 let mText = document.getElementById('mText');
 const dotOp = document.getElementById('dot');
+const openBr = document.getElementById('openBr');
+const closeBr = document.getElementById('closeBr')
 let memoryVariable;
 let dotAppend = true;
+if(memoryVariable){
+    memClear.removeAttribute('disabled');
+    memRecall.removeAttribute('disabled');
+}
+
 
 //Event Listerner for each button to append it into Display
 buttons.forEach((btn)=>{
@@ -20,6 +29,9 @@ buttons.forEach((btn)=>{
         if(display.value === "0"){
             display.value = "";
             display.value += `${e.target.textContent}`;
+        }
+        else if(display.value != "0" && !lastCheck() && (display.value.at(-1) === ")")){
+            display.value += `*${e.target.textContent}`;
         }
         else{
             display.value += `${e.target.textContent}`;
@@ -62,7 +74,10 @@ window.addEventListener('keydown',(e)=>{
             display.value = ""; 
             display.value += `${e.key}`;
         }
-        else if(display.value != "0" && e.key != "Enter" && !lastCheck()){
+        else if(display.value != "0" && (e.key == "-" || e.key == "+") && !lastCheck() && (display.value.at(-1) === "(")){
+            display.value += `${e.key}`;
+    }
+        else if(display.value != "0" && e.key != "Enter" && !lastCheck() && !(display.value.at(-1) === "(")){
             display.value += `${e.key}`;
             dotAppend = true;
         }
@@ -83,7 +98,10 @@ operators.forEach((op)=>{
             display.value = ""; 
             display.value += `${e.target.id}`;
         }
-        else if(display.value != "0" && e.target.innerHTML != "=" && !lastCheck()){
+        else if(display.value != "0" && (e.target.innerHTML == "-" || e.target.innerHTML == "+") && !lastCheck() && (display.value.at(-1) === "(")){
+                display.value += `${e.target.id}`;
+        }
+        else if(display.value != "0" && e.target.innerHTML != "=" && !lastCheck() && !(display.value.at(-1) === "(")){
             display.value += `${e.target.id}`;
             dotAppend = true;
         }
@@ -113,32 +131,86 @@ dotOp.addEventListener('click',(e)=>{
     }
 })
 
+
+//Event For Open and Close Bracket
+openBr.addEventListener('click',()=>{
+    if(display.value === "0" || display.value.at(-1) === ")" || ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(display.value.at(-1))){
+        display.value += `*(`;
+    }
+    else{
+        if(!(display.value.at(-1) === ".")){
+            display.value += `(`;
+        }
+        
+    }
+})
+
+closeBr.addEventListener('click',()=>{
+    if(display.value !== "0" && checkBracket()){
+        display.value += `)`;
+    }
+    // else if(checkBracket){
+    //     display.value += `)`;
+    // }
+    
+})
+
+
+
 //Event Listerner to Clear Display
 clear.addEventListener('click',(e)=>{
     display.value = "0";
 })
 
 //Events For Memory Operations
+memClear.addEventListener('click',(e)=>{
+    memoryVariable = null;
+    memClear.disabled = true
+    memRecall.disabled = true
+    display.value = `0`;
+    mText.innerHTML = `<i>memory:</i>`;
+})
+
+memRecall.addEventListener('click',(e)=>{
+    display.value = `${memoryVariable}`;
+})
+
+
+
 mStore.addEventListener('click', ()=>{
-    memoryVariable = calculate(display.value)
-    mText.innerHTML = `<i>memory:</i> ${memoryVariable}`;
+    if(checkDigits()){
+        // memoryVariable = calculate(display.value)
+        memoryVariable = display.value;
+        mText.innerHTML = `<i>memory:</i> ${memoryVariable}`;
+        memClear.removeAttribute('disabled')
+        memRecall.removeAttribute('disabled')
+    }
+    else{
+        alert('Evaluate First')
+    }
+    
 });
 
 
 mPlus.addEventListener('click', () => {
-    if (memoryVariable !== undefined) {
-        display.value = calculate(`${display.value} + ${memoryVariable}`);
+    if (memoryVariable !== undefined || memoryVariable !== none) {
+        if(checkDigits()){
+            memoryVariable = calculate(`${display.value} + ${memoryVariable}`);
+        }
     } else {
-        memoryVariable = calculate(display.value);
+        alert('Evaluate First')
     }
     mText.innerHTML = `<i>memory:</i> ${memoryVariable}`;
 });
 
+
 mMinus.addEventListener('click', () => {
-    if (memoryVariable !== undefined) {
-        display.value = calculate(`${display.value} - ${memoryVariable}`);
+    if (memoryVariable !== undefined || memoryVariable !== none) {
+        if(checkDigits()){
+            memoryVariable = calculate(`${memoryVariable} - ${display.value}`);
+        }
     } else {
-        memoryVariable = calculate(display.value);
+        alert("Evaluate First")
     }
     mText.innerHTML = `<i>memory:</i> ${memoryVariable}`;
 });
@@ -146,13 +218,19 @@ mMinus.addEventListener('click', () => {
 
 //Event For x to the power Two Function
 powerTwo.addEventListener('click',(e)=>{
-    if(checkDigits()){
-        display.value = calculate(`${display.value}*${display.value}`);
+    if(display.value === "0"){
+        display.value = `(0^2`;
     }
     else{
-        tempSolution = calculate(display.value);
-        display.value = calculate(`${tempSolution}*${tempSolution}`);
+        if(checkDigits()){
+            display.value = calculate(`${display.value}*${display.value}`);
+        }
+        else{
+            tempSolution = calculate(display.value);
+            display.value = calculate(`${tempSolution}*${tempSolution}`);
+        }
     }
+    
 })
 
 //Event for One By X function
@@ -210,3 +288,29 @@ function checkDigits(){
     }
     return true;
 }
+
+
+//Function to check Brackets
+function checkBracket(){
+    let openBracket = 0;
+    let closeBracket = 0;
+    for(let i = 0; i<(display.value.length); i++){
+        if(display.value[i] == "("){
+            openBracket++;
+        }
+        else if(display.value[i] == ")"){
+            closeBracket++;
+        }
+    }
+    if(openBracket > closeBracket){
+        return true;
+    }
+    else{
+        false;
+    }
+}
+
+
+
+//Edge Cases 3.(2)
+//Invalid Case 3+(3)*(
