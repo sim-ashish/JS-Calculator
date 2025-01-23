@@ -68,7 +68,7 @@ window.addEventListener('keydown',(e)=>{
             display.value += `${e.key}`;
         }
     }
-    else if(['/','*','-','+','Enter'].includes(e.key)){
+    else if(['/','*','-','+','%','Enter'].includes(e.key)){
         e.preventDefault();
         if(display.value == "0" &&  e.key == "-" && !lastCheck()){
             display.value = ""; 
@@ -102,8 +102,14 @@ operators.forEach((op)=>{
                 display.value += `${e.target.id}`;
         }
         else if(display.value != "0" && e.target.innerHTML != "=" && !lastCheck() && !(display.value.at(-1) === "(")){
-            display.value += `${e.target.id}`;
-            dotAppend = true;
+            if(e.target.innerHTML == "mod"){
+                display.value += `%`;
+                dotAppend = true;
+            }
+            else{
+                display.value += `${e.target.id}`;
+                dotAppend = true;
+            } 
         }
         else if(e.target.innerHTML == "="){
             let tempValue = display.value;
@@ -219,7 +225,7 @@ mMinus.addEventListener('click', () => {
 //Event For x to the power Two Function
 powerTwo.addEventListener('click',(e)=>{
     if(display.value === "0"){
-        display.value = `(0^2`;
+        display.value = `(0^2)`;
     }
     else if(['1','2','3','4','5','6','7','8','9','0'].includes(display.value.at(-1))){
         tempString = "";
@@ -275,19 +281,26 @@ factorial.addEventListener('click',()=>{
 //Function to Solve Calculations
 
 function calculate(string) {
-    string = string.replaceAll('^','**');
-    if (string.includes('/') && string.split('/')[1] === '0') {
-        alert('Error: Division by 0')
-        // return 'Error: Division by 0';
-        return "0";
+    try{
+        string = string.replaceAll('^','**');
+        if (string.includes('/') && string.split('/')[1] === '0') {
+            alert('Error: Division by 0')
+            // return 'Error: Division by 0';
+            return "0";
+        }
+        if (display.value.length < 2 && display.value[0] == "-") {
+            return display.value;
+        }
+        if (`${eval(string)}`.indexOf('.') !== -1) {
+            return Number(eval(string)).toFixed(3);
+        }
+        return eval(string);
     }
-    if (display.value.length < 2 && display.value[0] == "-") {
-        return display.value;
+    catch(e){
+        alert("Invalid Operation");
+        return 0;
     }
-    if (`${eval(string)}`.indexOf('.') !== -1) {
-        return Number(eval(string)).toFixed(3);
-    }
-    return eval(string);
+    
 }
 
 
