@@ -221,15 +221,35 @@ powerTwo.addEventListener('click',(e)=>{
     if(display.value === "0"){
         display.value = `(0^2`;
     }
-    else{
-        if(checkDigits()){
-            display.value = calculate(`${display.value}*${display.value}`);
+    else if(['1','2','3','4','5','6','7','8','9','0'].includes(display.value.at(-1))){
+        tempString = "";
+        if(display.value.length <= 1){
+            tempString = `(${display.value}^2)`;
+            display.value = tempString;
         }
         else{
-            tempSolution = calculate(display.value);
-            display.value = calculate(`${tempSolution}*${tempSolution}`);
+        for(let i = ((display.value.length) -1); i > 0 ; i--){
+            if(['-','+','*','/'].includes(display.value[i])){
+                console.log("Success Ocured")
+                tempString = `${display.value.slice(0,i+1)}(${display.value.slice(i+1,display.value.length)}`
+            }
+            else{
+                console.log("Error Occured")
+                tempString = `(${display.value}`;
+            }
         }
+        display.value = `${tempString}^2)`;
     }
+    }
+    // else{
+    //     if(checkDigits()){
+    //         display.value = calculate(`${display.value}*${display.value}`);
+    //     }
+    //     else{
+    //         tempSolution = calculate(display.value);
+    //         display.value = calculate(`${tempSolution}*${tempSolution}`);
+    //     }
+    // }
     
 })
 
@@ -255,10 +275,12 @@ factorial.addEventListener('click',()=>{
 //Function to Solve Calculations
 
 function calculate(string) {
+    string = string.replaceAll('^','**');
     if (string.includes('/') && string.split('/')[1] === '0') {
-        return 'Error: Division by 0';
+        alert('Error: Division by 0')
+        // return 'Error: Division by 0';
+        return "0";
     }
-
     if (display.value.length < 2 && display.value[0] == "-") {
         return display.value;
     }
