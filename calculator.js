@@ -26,9 +26,26 @@ buttons.forEach((btn)=>{
     })
 })
 
+//Event for backSpace
+const backSpace = function (e) {
+    if (display.value.length > 1) {
+        let tempDisplay = display.value;
+        tempDisplay = tempDisplay.slice(0, -1);
+        display.value = tempDisplay;
+    } else if (display.value.length === 1 || display.value === "0") {
+        display.value = "0";
+    }
+};
+
+back.addEventListener('click',backSpace)
+
 //Window Event Listerner To listen when any key is Pressed From Keyboard
-window.addEventListener('keypress',(e)=>{
-    if(e.keyCode >= 48 && e.keyCode <=57)
+window.addEventListener('keydown',(e)=>{
+    if((e.keyCode >= 48 && e.keyCode <= 57) || 
+            // For numeric keypad keys (0-9)
+            (e.keyCode >= 96 && e.keyCode <= 105) || 
+            // For the key values (also works for both number rows and numpad)
+            ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(e.key))
     {
         if(display.value === "0"){
             display.value = "";
@@ -37,6 +54,24 @@ window.addEventListener('keypress',(e)=>{
         else{
             display.value += `${e.key}`;
         }
+    }
+    else if(['/','*','-','+','Enter'].includes(e.key)){
+        e.preventDefault();
+        if(display.value == "0" &&  e.key == "-" && !lastCheck()){
+            display.value = ""; 
+            display.value += `${e.key}`;
+        }
+        else if(display.value != "0" && e.key != "Enter" && !lastCheck()){
+            display.value += `${e.key}`;
+            dotAppend = true;
+        }
+        else if(e.key == 'Enter'){
+            let tempValue = display.value;
+            display.value = calculate(tempValue);
+        }
+    }
+    else if(e.key == 'Backspace'){
+        backSpace(e);
     }
 })
 
@@ -89,44 +124,24 @@ mStore.addEventListener('click', ()=>{
 });
 
 
-mPlus.addEventListener('click', ()=>{
-    if(memoryVariable){
-        display.value = calculate(`${display.value} + ${memoryVariable}`)
-        mText.innerHTML = `<i>memory:</i> ${memoryVariable}`;
+mPlus.addEventListener('click', () => {
+    if (memoryVariable !== undefined) {
+        display.value = calculate(`${display.value} + ${memoryVariable}`);
+    } else {
+        memoryVariable = calculate(display.value);
     }
-    else{
-        memoryVariable = calculate(display.value)
-        mText.innerHTML = `<i>memory:</i> ${memoryVariable}`;
-    }
+    mText.innerHTML = `<i>memory:</i> ${memoryVariable}`;
 });
 
-
-mMinus.addEventListener('click',()=>{
-    if(memoryVariable){
-        display.value = calculate(`${display.value} - ${memoryVariable}`)
-        mText.innerHTML = `<i>memory:</i> ${memoryVariable}`;
+mMinus.addEventListener('click', () => {
+    if (memoryVariable !== undefined) {
+        display.value = calculate(`${display.value} - ${memoryVariable}`);
+    } else {
+        memoryVariable = calculate(display.value);
     }
-    else{
-        memoryVariable = calculate(display.value)
-        mText.innerHTML = `<i>memory:</i> ${memoryVariable}`;
-    }
+    mText.innerHTML = `<i>memory:</i> ${memoryVariable}`;
 });
 
-
-//Event for backSpace
-const backSpace = function(e){
-    if(display.value.length > 1){
-        let tempDisplay = display.value;
-        tempDisplay = tempDisplay.slice(0,-1);
-        display.value = tempDisplay;
-    }
-    else{
-        display.value = "0"
-    }
-    
-}
-
-back.addEventListener('click',backSpace)
 
 //Event For x to the power Two Function
 powerTwo.addEventListener('click',(e)=>{
@@ -149,26 +164,28 @@ factorial.addEventListener('click',()=>{
 
 //Function to Solve Calculations
 
-function calculate(string){
-    if(display.value.length < 2 && display.value[0] == "-"){
+function calculate(string) {
+    if (string.includes('/') && string.split('/')[1] === '0') {
+        return 'Error: Division by 0';
+    }
+
+    if (display.value.length < 2 && display.value[0] == "-") {
         return display.value;
     }
-    if(string.indexOf('.') != -1){
+    if (`${eval(string)}`.indexOf('.') !== -1) {
         return Number(eval(string)).toFixed(3);
     }
-    return eval(string)
+    return eval(string);
 }
+
 
 
 //Function To Check Last Character in Display, will return true if last character is operator
-function lastCheck(){
-    if(display.value.at(-1) == "*" || display.value.at(-1) == "/" || display.value.at(-1) == "-" || display.value.at(-1) == "+"){
-        return true;
-    }
-    else{
-        return false;
-    }
+function lastCheck() {
+    const lastChar = display.value.at(-1);
+    return (lastChar === "*" || lastChar === "/" || lastChar === "-" || lastChar === "+");
 }
+
 
 
 //Function to Check Whether Display Contains all digits or not
