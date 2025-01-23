@@ -101,15 +101,28 @@ operators.forEach((op)=>{
         else if(display.value != "0" && (e.target.innerHTML == "-" || e.target.innerHTML == "+") && !lastCheck() && (display.value.at(-1) === "(")){
                 display.value += `${e.target.id}`;
         }
-        else if(display.value != "0" && e.target.innerHTML != "=" && !lastCheck() && !(display.value.at(-1) === "(")){
-            if(e.target.innerHTML == "mod"){
-                display.value += `%`;
-                dotAppend = true;
+        else if(display.value != "0" && e.target.innerHTML != "="  && !(display.value.at(-1) === "(")){
+            if(lastCheck()){  // In Case Of True
+                if(e.target.innerHTML == "mod"){
+                    display.value = `${display.value.slice(0,(display.value.length)-1)}%`;
+                    dotAppend = true;
+                }
+                else{
+                    display.value = `${display.value.slice(0,(display.value.length)-1)}${e.target.id}`;
+                    dotAppend = true;
+                } 
             }
             else{
-                display.value += `${e.target.id}`;
-                dotAppend = true;
-            } 
+                if(e.target.innerHTML == "mod"){
+                    display.value += `%`;
+                    dotAppend = true;
+                }
+                else{
+                    display.value += `${e.target.id}`;
+                    dotAppend = true;
+                } 
+            }
+            
         }
         else if(e.target.innerHTML == "="){
             let tempValue = display.value;
@@ -308,7 +321,7 @@ function calculate(string) {
 //Function To Check Last Character in Display, will return true if last character is operator
 function lastCheck() {
     const lastChar = display.value.at(-1);
-    return (lastChar === "*" || lastChar === "/" || lastChar === "-" || lastChar === "+");
+    return (lastChar === "*" || lastChar === "/" || lastChar === "-" || lastChar === "+" || lastChar === "%");
 }
 
 
