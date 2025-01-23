@@ -4,6 +4,7 @@ const operators = document.querySelectorAll('.operator');
 const clear = document.getElementById('cls');
 const back = document.getElementById('back');
 const powerTwo = document.getElementById('powerTwo');
+const oneByX = document.getElementById('oneX');
 const factorial = document.getElementById('fact');
 const mPlus = document.getElementById('mPlus');
 const mMinus = document.getElementById('mMinus');
@@ -151,6 +152,17 @@ powerTwo.addEventListener('click',(e)=>{
     else{
         tempSolution = calculate(display.value);
         display.value = calculate(`${tempSolution}*${tempSolution}`);
+    }
+})
+
+//Event for One By X function
+oneByX.addEventListener('click',(e)=>{
+    if(checkDigits()){
+        display.value = calculate(`1/${display.value}`);
+    }
+    else{
+        tempSolution = calculate(display.value);
+        display.value = calculate(`1/${tempSolution}`);
     }
 })
 
