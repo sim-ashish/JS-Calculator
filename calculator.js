@@ -249,11 +249,9 @@ powerTwo.addEventListener('click',(e)=>{
         else{
         for(let i = ((display.value.length) -1); i > 0 ; i--){
             if(['-','+','*','/'].includes(display.value[i])){
-                console.log("Success Ocured")
                 tempString = `${display.value.slice(0,i+1)}(${display.value.slice(i+1,display.value.length)}`
             }
             else{
-                console.log("Error Occured")
                 tempString = `(${display.value}`;
             }
         }
@@ -274,13 +272,16 @@ powerTwo.addEventListener('click',(e)=>{
 
 //Event for One By X function
 oneByX.addEventListener('click',(e)=>{
-    if(checkDigits()){
-        display.value = calculate(`1/${display.value}`);
+    if(display.value === "0"){
+        display.value = `(1/`;
     }
-    else{
-        tempSolution = calculate(display.value);
-        display.value = calculate(`1/${tempSolution}`);
+    else if(['1','2','3','4','5','6','7','8','9','0'].includes(display.value.at(-1))){
+        display.value += `*(1/`;
     }
+    else if(['+','-','*','/','%'].includes(display.value.at(-1))){
+        display.value += `(1/`;
+    }
+    
 })
 
 //Event For Factorial
@@ -294,6 +295,26 @@ factorial.addEventListener('click',()=>{
 //Function to Solve Calculations
 
 function calculate(string) {
+    let openBracket = 0;
+    let closeBracket = 0;
+    let removeBrackets = 0;
+    for(let i=0; i<string.length; i++){
+        if(string[i] === "("){
+            openBracket++;
+        }
+        else if(string[i] === ")"){
+            closeBracket++;
+        }
+    }
+    removeBrackets = openBracket-closeBracket;
+    if(removeBrackets > 0){
+        for(let i = 0; i<string.length; i++){
+            if(string[i] === "(" && removeBrackets !== 0){
+                string = replaceChar(string, "", i);
+                removeBrackets--;
+            }
+        }
+    }
     try{
         string = string.replaceAll('^','**');
         if (string.includes('/') && string.split('/')[1] === '0') {
@@ -358,6 +379,13 @@ function checkBracket(){
     }
 }
 
+
+function replaceChar(origString, replaceChar, index){
+    let firstPart = origString.substr(0, index);
+    let lastPart = origString.substr(index+1);
+    let newString = `${firstPart}${replaceChar}${lastPart}`;
+    return newString;
+}
 
 
 //Edge Cases 3.(2)
