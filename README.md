@@ -52,6 +52,11 @@ This is a **scientific calculator** built using **JavaScript**, designed to prov
 - **Basic Addition:**  
   `5 + 3 = 8`
 
+- **Power two:**  
+  `(0 ^ 2) = 0`
+  `(2 ^ 2) = 4`
+
+
 - **Parentheses for Order of Operations:**  
   `(3 + 2) * 4 = 20`
 
@@ -75,18 +80,4 @@ You can also use the keyboard for your calculations:
 
 Check out the live demo of the calculator at [https://sim-ashish.github.io/JS-Calculator/].
 
----
 
-## Contributing
-
-If you'd like to contribute to the project, feel free to fork the repository, make improvements, and submit a pull request. 
-
----
-
-## License
-
-This project is open-source and available under the [MIT License](LICENSE).
-
----
-
-Feel free to reach out if you have any questions or suggestions!
