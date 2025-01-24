@@ -8,7 +8,18 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
+#theme{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 2vw 6vw 0 0;
+}
+#theme i{
+    font-size: 3vw;
+}
+
 .container{
     background: #f3f3f3;
     padding: 0.5vw;
@@ -46,9 +57,10 @@ input#textDisplay:focus{
 }
 #first .btn{
     flex-grow: 0;
+    width: 20%;
 }
 .btn{
-    font-size: 1.2vw;
+    font-size: 1vw;
     font-weight: 0;
     padding: 0.5em 0.1em;
     background: #f6f6f6;
@@ -61,11 +73,11 @@ input#textDisplay:focus{
     aspect-ratio: 3/2;
 }
 .fun-btn{
-    width: max-content;
+    width: 40%;
     padding: 0;
     flex-grow: 0;
     margin: 0.5em;
-    margin-right: 1em;
+    /* margin-right: 1em; */
     width: max-content;
     display: flex;
     flex-direction: row;
@@ -101,3 +113,46 @@ input#textDisplay:focus{
         }
 
 }
+
+
+@media only screen and (max-width: 600px) {
+    .container{
+        width: 80vw;
+        height: max-content
+    }
+    .btn{
+        font-size: 3vw;
+    }
+}
+
+
+@media only screen and (min-width: 600px) and (max-width:800px) {
+    .container{
+        width: 70vw;
+        height: max-content
+    }
+    .btn{
+        font-size: 3vw;
+    }
+    #textDisplay{
+        font-size: 8vw;
+    }
+
+} 
+@media only screen and (min-width: 800px) and (max-width:1200px) {
+    .container{
+        width: 50vw;
+        height: max-content
+    }
+    .btn{
+        font-size: 1.5vw;
+    }
+    #textDisplay{
+        font-size: 8vw;
+    }
+
+} 
+
+
+
+

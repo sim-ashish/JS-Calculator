@@ -43,6 +43,9 @@ buttons.forEach((btn)=>{
 const backSpace = function (e) {
     if (display.value.length > 1) {
         let tempDisplay = display.value;
+        if(display.value.at(-1) == "."){
+            dotAppend = true;
+        }
         tempDisplay = tempDisplay.slice(0, -1);
         display.value = tempDisplay;
     } else if (display.value.length === 1 || display.value === "0") {
@@ -151,6 +154,8 @@ dotOp.addEventListener('click',(e)=>{
 })
 
 
+
+
 //Event For Open and Close Bracket
 openBr.addEventListener('click',()=>{
     if(display.value === "0" || display.value.at(-1) === ")" || ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(display.value.at(-1))){
@@ -180,6 +185,10 @@ closeBr.addEventListener('click',()=>{
 clear.addEventListener('click',(e)=>{
     display.value = "0";
 })
+
+
+
+
 
 //Events For Memory Operations
 memClear.addEventListener('click',(e)=>{
@@ -235,6 +244,7 @@ mMinus.addEventListener('click', () => {
 });
 
 
+
 //Event For x to the power Two Function
 powerTwo.addEventListener('click',(e)=>{
     if(display.value === "0"){
@@ -258,15 +268,6 @@ powerTwo.addEventListener('click',(e)=>{
         display.value = `${tempString}^2)`;
     }
     }
-    // else{
-    //     if(checkDigits()){
-    //         display.value = calculate(`${display.value}*${display.value}`);
-    //     }
-    //     else{
-    //         tempSolution = calculate(display.value);
-    //         display.value = calculate(`${tempSolution}*${tempSolution}`);
-    //     }
-    // }
     
 })
 
@@ -326,6 +327,7 @@ function calculate(string) {
             return display.value;
         }
         if (`${eval(string)}`.indexOf('.') !== -1) {
+            dotAppend = false;
             return Number(eval(string)).toFixed(3);
         }
         return eval(string);
@@ -390,3 +392,6 @@ function replaceChar(origString, replaceChar, index){
 
 //Edge Cases 3.(2)
 //Invalid Case 3+(3)*(
+
+
+
