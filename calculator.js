@@ -196,7 +196,7 @@ memClear.addEventListener('click',(e)=>{
     memClear.disabled = true
     memRecall.disabled = true
     display.value = `0`;
-    mText.innerHTML = `<i>memory:</i>`;
+    mText.innerHTML = ``;
 })
 
 memRecall.addEventListener('click',(e)=>{
@@ -210,8 +210,8 @@ mStore.addEventListener('click', ()=>{
         // memoryVariable = calculate(display.value)
         memoryVariable = display.value;
         mText.innerHTML = `<i>memory:</i> ${memoryVariable}`;
-        memClear.removeAttribute('disabled')
-        memRecall.removeAttribute('disabled')
+        memClear.removeAttribute('disabled');
+        memRecall.removeAttribute('disabled');
     }
     else{
         alert('Evaluate First')
