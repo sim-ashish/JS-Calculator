@@ -274,7 +274,7 @@ powerTwo.addEventListener('click',(e)=>{
 //Event for One By X function
 oneByX.addEventListener('click',(e)=>{
     if(display.value === "0"){
-        display.value = `(1/`;
+        display.value = `1/`;
     }
     else if(['1','2','3','4','5','6','7','8','9','0'].includes(display.value.at(-1))){
         display.value += `*(1/`;
