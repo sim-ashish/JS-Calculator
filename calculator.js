@@ -280,19 +280,34 @@ oneByX.addEventListener('click',(e)=>{
     else if(checkDigits()){
         tempValue = display.value;
         display.value = `1/${tempValue}`;
+        return;
     }
     else if(['+','-','*','/','%'].includes(display.value.at(-1))){
         display.value += `(1/`;
+        return;
     }
-    else if(['1','2','3','4','5','6','7','8','9','0'].includes(display.value.at(-1))){
-        display.value += `*(1/`;
+    else{
+        let tempValue = display.value;
+        let sliceIndex;
+        for(let i = tempValue.length-1;i>=0;i--){
+            console.log(display.value.at(i));
+            if(['+','-','*','/','%'].includes(display.value.at(i))){
+                sliceIndex = i;
+                break;
+            }
+        }
+        let prefix = tempValue.slice(0, sliceIndex+1)
+        let suffix = tempValue.slice(sliceIndex+1,display.value.length);
+        display.value = `${prefix}(1/${suffix}`;
+        return;
+
     }
     
 })
 
 //Event For Factorial
 factorial.addEventListener('click',()=>{
-    console.log("Fact")
+    // Factorial Functionality
 })
 
 
