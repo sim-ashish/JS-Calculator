@@ -275,12 +275,17 @@ powerTwo.addEventListener('click',(e)=>{
 oneByX.addEventListener('click',(e)=>{
     if(display.value === "0"){
         display.value = `1/`;
+        return;
     }
-    else if(['1','2','3','4','5','6','7','8','9','0'].includes(display.value.at(-1))){
-        display.value += `*(1/`;
+    else if(checkDigits()){
+        tempValue = display.value;
+        display.value = `1/${tempValue}`;
     }
     else if(['+','-','*','/','%'].includes(display.value.at(-1))){
         display.value += `(1/`;
+    }
+    else if(['1','2','3','4','5','6','7','8','9','0'].includes(display.value.at(-1))){
+        display.value += `*(1/`;
     }
     
 })
